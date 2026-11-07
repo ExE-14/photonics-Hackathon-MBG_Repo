@@ -75,7 +75,7 @@
   - Падающее комплексное поле: $U_0 = \exp(i \Phi)$.
   - Предрассчитанный фазовый чирп: $Q_z(u, v) = \exp\left(i \frac{k}{2z} (u^2 + v^2)\right)$, где $k = \frac{2\pi}{\lambda}$.
   - Дифракция:
-    $$\hat{U}(x, y, z_j) = \mathcal{F}\left\{ \exp(i \Phi) \cdot Q_{z_j} \right\}, \quad |K_j| = \frac{|\hat{U}(x, y, z_j)|}{\max |\hat{U}(x, y, z_j)|}$$
+    $$\hat{U}(x, y, z_j) = \mathcal{F}\left[ \exp(i \Phi) \cdot Q_{z_j} \right], \quad |K_j| = \frac{|\hat{U}(x, y, z_j)|}{\max |\hat{U}(x, y, z_j)|}$$
   - Сквозной градиентный поток: $\frac{\partial \mathcal{L}}{\partial \Phi} = \sum_{j=1}^4 \frac{\partial \mathcal{L}}{\partial |K_j|} \frac{\partial |K_j|}{\partial \hat{U}_j} \frac{\partial \hat{U}_j}{\partial \Phi}$.
 
 ### Текст выступления спикера (Word-by-word Script):
