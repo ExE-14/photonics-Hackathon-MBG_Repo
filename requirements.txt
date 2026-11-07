@@ -1,0 +1,18 @@
+# ==============================================================================
+# MEPhI AI Photonics Hackathon - DOE Phase Reconstruction Dependencies
+# ==============================================================================
+
+# Core scientific computing and numerical arrays
+numpy>=1.24.0,<2.0.0
+scipy>=1.10.0
+
+# Deep learning framework (PyTorch with CUDA/CPU support)
+torch>=2.0.0
+torchvision>=0.15.0
+
+# Image processing and computer vision
+Pillow>=9.5.0
+opencv-python-headless>=4.8.0
+
+# Visualization and logging
+matplotlib>=3.7.0
