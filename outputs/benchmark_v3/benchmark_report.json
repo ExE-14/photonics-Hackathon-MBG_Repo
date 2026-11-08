@@ -1,0 +1,550 @@
+{
+  "timestamp": "2026-11-08 18:37:27",
+  "weights_path": "E:\\Фотоника\\code\\doe_network.pth",
+  "device": "cuda",
+  "gpu_name": "NVIDIA GeForce RTX 4060",
+  "total_parameters": 8419929,
+  "audits": {
+    "physics": {
+      "nyquist_criterion": {
+        "passed": true,
+        "z_crit_mm": 24.0602,
+        "z_actual_mm": [
+          24.1,
+          25.3,
+          26.5,
+          27.7
+        ],
+        "details": "Все 4 дистанции ([24.1, 25.3, 26.5, 27.7]) >= z_crit (24.060 мм). Фазовый элайзинг чирпа исключен."
+      },
+      "parseval_conservation": {
+        "passed": true,
+        "expected_energy": 268435456.0,
+        "actual_energies": [
+          268435392.0,
+          268435424.0,
+          268435408.0,
+          268435408.0
+        ],
+        "max_rel_error": 2.384185791015625e-07,
+        "details": "Энергетический баланс теоремы Парсеваля строго соблюден на всех 4 плоскостях."
+      },
+      "detached_amax_gradient": {
+        "passed": true,
+        "details": "Detached-amax исключает скачки субградиента на точке глобального максимума."
+      },
+      "zero_amplitude_gradient_stability": {
+        "passed": true,
+        "details": "Градиенты стабильны и не содержат NaN даже при экстремальных нулевых фазах."
+      },
+      "overall_physics_passed": true
+    },
+    "gradients_and_nan": {
+      "overall_gradients_passed": true,
+      "total_parameter_tensors": 119,
+      "scenarios": {
+        "standard_random": {
+          "passed": true,
+          "loss_value": 5.231822490692139,
+          "nan_tensors_count": 0,
+          "inf_tensors_count": 0,
+          "total_params_verified": 119
+        },
+        "all_zeros": {
+          "passed": true,
+          "loss_value": 5.2428388595581055,
+          "nan_tensors_count": 0,
+          "inf_tensors_count": 0,
+          "total_params_verified": 119
+        },
+        "all_ones": {
+          "passed": true,
+          "loss_value": 5.158436298370361,
+          "nan_tensors_count": 0,
+          "inf_tensors_count": 0,
+          "total_params_verified": 119
+        },
+        "high_freq_noise": {
+          "passed": true,
+          "loss_value": 5.240187644958496,
+          "nan_tensors_count": 0,
+          "inf_tensors_count": 0,
+          "total_params_verified": 119
+        },
+        "tiny_values": {
+          "passed": true,
+          "loss_value": 5.152000904083252,
+          "nan_tensors_count": 0,
+          "inf_tensors_count": 0,
+          "total_params_verified": 119
+        },
+        "gradient_ramp": {
+          "passed": true,
+          "loss_value": 5.321819305419922,
+          "nan_tensors_count": 0,
+          "inf_tensors_count": 0,
+          "total_params_verified": 119
+        }
+      }
+    },
+    "vram_leak": {
+      "overall_vram_passed": true,
+      "iterations_tested": 100,
+      "train_leak_bytes": 0,
+      "eval_leak_bytes": 0,
+      "train_snapshots_mb": [
+        199.41,
+        199.41,
+        199.41,
+        199.41,
+        199.41
+      ],
+      "eval_snapshots_mb": [
+        199.41,
+        199.41,
+        199.41,
+        199.41,
+        199.41
+      ],
+      "peak_vram_mb": 475.7,
+      "details": "VRAM утечки строго отсутствуют (Train leak: 0 B, Eval leak: 0 B). Пик: 475.70 MB."
+    }
+  },
+  "speed_benchmarks": {
+    "batch_1": {
+      "device": "cuda",
+      "gpu_name": "NVIDIA GeForce RTX 4060",
+      "batch_size": 1,
+      "iterations": 200,
+      "unet_only": {
+        "batch_size": 1,
+        "mean_ms": 7.153,
+        "std_ms": 1.489,
+        "median_ms": 6.939,
+        "p95_ms": 10.188,
+        "p99_ms": 11.999,
+        "min_ms": 2.938,
+        "max_ms": 13.378,
+        "fps": 139.8
+      },
+      "end_to_end": {
+        "batch_size": 1,
+        "mean_ms": 7.28,
+        "std_ms": 1.428,
+        "median_ms": 7.037,
+        "p95_ms": 9.971,
+        "p99_ms": 11.504,
+        "min_ms": 3.698,
+        "max_ms": 12.097,
+        "fps": 137.4
+      }
+    },
+    "multi_batches": [
+      {
+        "device": "cuda",
+        "gpu_name": "NVIDIA GeForce RTX 4060",
+        "batch_size": 1,
+        "iterations": 100,
+        "unet_only": {
+          "batch_size": 1,
+          "mean_ms": 8.147,
+          "std_ms": 1.752,
+          "median_ms": 7.994,
+          "p95_ms": 10.948,
+          "p99_ms": 12.494,
+          "min_ms": 3.373,
+          "max_ms": 15.837,
+          "fps": 122.7
+        },
+        "end_to_end": {
+          "batch_size": 1,
+          "mean_ms": 9.117,
+          "std_ms": 2.004,
+          "median_ms": 8.887,
+          "p95_ms": 12.643,
+          "p99_ms": 14.811,
+          "min_ms": 4.214,
+          "max_ms": 15.279,
+          "fps": 109.7
+        }
+      },
+      {
+        "device": "cuda",
+        "gpu_name": "NVIDIA GeForce RTX 4060",
+        "batch_size": 4,
+        "iterations": 100,
+        "unet_only": {
+          "batch_size": 4,
+          "mean_ms": 11.389,
+          "std_ms": 1.814,
+          "median_ms": 12.015,
+          "p95_ms": 14.007,
+          "p99_ms": 14.722,
+          "min_ms": 6.268,
+          "max_ms": 14.723,
+          "fps": 351.2
+        },
+        "end_to_end": {
+          "batch_size": 4,
+          "mean_ms": 11.548,
+          "std_ms": 1.863,
+          "median_ms": 11.965,
+          "p95_ms": 14.093,
+          "p99_ms": 15.114,
+          "min_ms": 6.392,
+          "max_ms": 16.453,
+          "fps": 346.4
+        }
+      },
+      {
+        "device": "cuda",
+        "gpu_name": "NVIDIA GeForce RTX 4060",
+        "batch_size": 16,
+        "iterations": 100,
+        "unet_only": {
+          "batch_size": 16,
+          "mean_ms": 46.511,
+          "std_ms": 6.148,
+          "median_ms": 46.179,
+          "p95_ms": 56.968,
+          "p99_ms": 59.076,
+          "min_ms": 32.562,
+          "max_ms": 61.577,
+          "fps": 344.0
+        },
+        "end_to_end": {
+          "batch_size": 16,
+          "mean_ms": 43.55,
+          "std_ms": 4.736,
+          "median_ms": 43.486,
+          "p95_ms": 51.619,
+          "p99_ms": 54.529,
+          "min_ms": 31.805,
+          "max_ms": 56.474,
+          "fps": 367.4
+        }
+      }
+    ]
+  },
+  "test_sets_results": {
+    "Set_1_Official": {
+      "groups_count": 20,
+      "overall_pcc_normalized": 0.325,
+      "overall_ssim_normalized": 0.4502,
+      "planes": [
+        {
+          "plane": 1,
+          "z_mm": 24.1,
+          "pcc_normalized": 0.3429,
+          "ssim_normalized": 0.3729,
+          "pcc_raw": 0.3429,
+          "ssim_raw": 0.0
+        },
+        {
+          "plane": 2,
+          "z_mm": 25.3,
+          "pcc_normalized": 0.411,
+          "ssim_normalized": 0.4913,
+          "pcc_raw": 0.411,
+          "ssim_raw": 0.0
+        },
+        {
+          "plane": 3,
+          "z_mm": 26.5,
+          "pcc_normalized": 0.3154,
+          "ssim_normalized": 0.5038,
+          "pcc_raw": 0.3154,
+          "ssim_raw": 0.0
+        },
+        {
+          "plane": 4,
+          "z_mm": 27.7,
+          "pcc_normalized": 0.2307,
+          "ssim_normalized": 0.4328,
+          "pcc_raw": 0.2307,
+          "ssim_raw": 0.0
+        }
+      ]
+    },
+    "Set_2_Contrast_Dark": {
+      "Rival_Clean_Group": {
+        "per_plane": [
+          {
+            "plane_idx": 1,
+            "z_mm": 24.1,
+            "pcc_normalized": 0.4531,
+            "ssim_normalized": 0.1942,
+            "pcc_raw": 0.4531,
+            "ssim_raw": 0.0,
+            "ssim_raw_target": 0.194
+          },
+          {
+            "plane_idx": 2,
+            "z_mm": 25.3,
+            "pcc_normalized": 0.4942,
+            "ssim_normalized": 0.1998,
+            "pcc_raw": 0.4942,
+            "ssim_raw": 0.0,
+            "ssim_raw_target": 0.1995
+          },
+          {
+            "plane_idx": 3,
+            "z_mm": 26.5,
+            "pcc_normalized": 0.4362,
+            "ssim_normalized": 0.1921,
+            "pcc_raw": 0.4362,
+            "ssim_raw": 0.0,
+            "ssim_raw_target": 0.1886
+          },
+          {
+            "plane_idx": 4,
+            "z_mm": 27.7,
+            "pcc_normalized": 0.6075,
+            "ssim_normalized": 0.1923,
+            "pcc_raw": 0.6075,
+            "ssim_raw": 0.0,
+            "ssim_raw_target": 0.187
+          }
+        ],
+        "mean_pcc_normalized": 0.4978,
+        "mean_ssim_normalized": 0.1946,
+        "mean_pcc_raw": 0.4978,
+        "mean_ssim_raw": 0.0,
+        "mean_ssim_raw_target": 0.1923,
+        "composite_score_norm": 0.3765
+      },
+      "Web_Screens_Group": {
+        "per_plane": [
+          {
+            "plane_idx": 1,
+            "z_mm": 24.1,
+            "pcc_normalized": 0.5142,
+            "ssim_normalized": 0.1984,
+            "pcc_raw": 0.5142,
+            "ssim_raw": 0.0,
+            "ssim_raw_target": 0.1984
+          },
+          {
+            "plane_idx": 2,
+            "z_mm": 25.3,
+            "pcc_normalized": 0.5875,
+            "ssim_normalized": 0.207,
+            "pcc_raw": 0.5875,
+            "ssim_raw": 0.0,
+            "ssim_raw_target": 0.207
+          },
+          {
+            "plane_idx": 3,
+            "z_mm": 26.5,
+            "pcc_normalized": 0.1075,
+            "ssim_normalized": 0.2396,
+            "pcc_raw": 0.1075,
+            "ssim_raw": 0.0001,
+            "ssim_raw_target": 0.2396
+          },
+          {
+            "plane_idx": 4,
+            "z_mm": 27.7,
+            "pcc_normalized": -0.0016,
+            "ssim_normalized": 0.1939,
+            "pcc_raw": -0.0016,
+            "ssim_raw": 0.0,
+            "ssim_raw_target": 0.1939
+          }
+        ],
+        "mean_pcc_normalized": 0.3019,
+        "mean_ssim_normalized": 0.2097,
+        "mean_pcc_raw": 0.3019,
+        "mean_ssim_raw": 0.0,
+        "mean_ssim_raw_target": 0.2097,
+        "composite_score_norm": 0.265
+      },
+      "Deterministic_Optical_Masks": {
+        "per_plane": [
+          {
+            "plane_idx": 1,
+            "z_mm": 24.1,
+            "pcc_normalized": 0.0271,
+            "ssim_normalized": 0.0072,
+            "pcc_raw": 0.0271,
+            "ssim_raw": 0.0,
+            "ssim_raw_target": 0.0072
+          },
+          {
+            "plane_idx": 2,
+            "z_mm": 25.3,
+            "pcc_normalized": 0.5651,
+            "ssim_normalized": 0.1553,
+            "pcc_raw": 0.5651,
+            "ssim_raw": 0.0001,
+            "ssim_raw_target": 0.1553
+          },
+          {
+            "plane_idx": 3,
+            "z_mm": 26.5,
+            "pcc_normalized": 0.5282,
+            "ssim_normalized": 0.0365,
+            "pcc_raw": 0.5282,
+            "ssim_raw": 0.0,
+            "ssim_raw_target": 0.0365
+          },
+          {
+            "plane_idx": 4,
+            "z_mm": 27.7,
+            "pcc_normalized": 0.5493,
+            "ssim_normalized": 0.0473,
+            "pcc_raw": 0.5493,
+            "ssim_raw": 0.0,
+            "ssim_raw_target": 0.0473
+          }
+        ],
+        "mean_pcc_normalized": 0.4174,
+        "mean_ssim_normalized": 0.0616,
+        "mean_pcc_raw": 0.4174,
+        "mean_ssim_raw": 0.0,
+        "mean_ssim_raw_target": 0.0616,
+        "composite_score_norm": 0.2751
+      }
+    },
+    "Set_3_Arbitrary_Shapes": {
+      "Boykisser_Inverted_Neon": {
+        "per_plane": [
+          {
+            "plane_idx": 1,
+            "z_mm": 24.1,
+            "pcc_normalized": 0.2081,
+            "ssim_normalized": 0.0514,
+            "pcc_raw": 0.2081,
+            "ssim_raw": 0.0,
+            "ssim_raw_target": 0.0514
+          },
+          {
+            "plane_idx": 2,
+            "z_mm": 25.3,
+            "pcc_normalized": 0.3757,
+            "ssim_normalized": 0.0578,
+            "pcc_raw": 0.3757,
+            "ssim_raw": 0.0,
+            "ssim_raw_target": 0.0578
+          },
+          {
+            "plane_idx": 3,
+            "z_mm": 26.5,
+            "pcc_normalized": 0.3586,
+            "ssim_normalized": 0.0329,
+            "pcc_raw": 0.3586,
+            "ssim_raw": 0.0,
+            "ssim_raw_target": 0.0329
+          },
+          {
+            "plane_idx": 4,
+            "z_mm": 27.7,
+            "pcc_normalized": 0.5364,
+            "ssim_normalized": 0.0827,
+            "pcc_raw": 0.5364,
+            "ssim_raw": 0.0,
+            "ssim_raw_target": 0.0827
+          }
+        ],
+        "mean_pcc_normalized": 0.3697,
+        "mean_ssim_normalized": 0.0562,
+        "mean_pcc_raw": 0.3697,
+        "mean_ssim_raw": 0.0,
+        "mean_ssim_raw_target": 0.0562,
+        "composite_score_norm": 0.2443
+      },
+      "Boykisser_As_Is": {
+        "per_plane": [
+          {
+            "plane_idx": 1,
+            "z_mm": 24.1,
+            "pcc_normalized": 0.2113,
+            "ssim_normalized": 0.1738,
+            "pcc_raw": 0.2113,
+            "ssim_raw": 0.0,
+            "ssim_raw_target": 0.1738
+          },
+          {
+            "plane_idx": 2,
+            "z_mm": 25.3,
+            "pcc_normalized": 0.3725,
+            "ssim_normalized": 0.2821,
+            "pcc_raw": 0.3725,
+            "ssim_raw": 0.0001,
+            "ssim_raw_target": 0.2821
+          },
+          {
+            "plane_idx": 3,
+            "z_mm": 26.5,
+            "pcc_normalized": 0.2951,
+            "ssim_normalized": 0.2322,
+            "pcc_raw": 0.2951,
+            "ssim_raw": 0.0,
+            "ssim_raw_target": 0.2322
+          },
+          {
+            "plane_idx": 4,
+            "z_mm": 27.7,
+            "pcc_normalized": 0.2997,
+            "ssim_normalized": 0.2431,
+            "pcc_raw": 0.2997,
+            "ssim_raw": 0.0001,
+            "ssim_raw_target": 0.2431
+          }
+        ],
+        "mean_pcc_normalized": 0.2947,
+        "mean_ssim_normalized": 0.2328,
+        "mean_pcc_raw": 0.2947,
+        "mean_ssim_raw": 0.0001,
+        "mean_ssim_raw_target": 0.2328,
+        "composite_score_norm": 0.2699
+      },
+      "Vector_Silhouettes_Geometric": {
+        "per_plane": [
+          {
+            "plane_idx": 1,
+            "z_mm": 24.1,
+            "pcc_normalized": 0.3037,
+            "ssim_normalized": 0.0182,
+            "pcc_raw": 0.3037,
+            "ssim_raw": 0.0,
+            "ssim_raw_target": 0.0182
+          },
+          {
+            "plane_idx": 2,
+            "z_mm": 25.3,
+            "pcc_normalized": 0.4057,
+            "ssim_normalized": 0.0385,
+            "pcc_raw": 0.4057,
+            "ssim_raw": 0.0001,
+            "ssim_raw_target": 0.0385
+          },
+          {
+            "plane_idx": 3,
+            "z_mm": 26.5,
+            "pcc_normalized": 0.5065,
+            "ssim_normalized": 0.0344,
+            "pcc_raw": 0.5065,
+            "ssim_raw": 0.0,
+            "ssim_raw_target": 0.0344
+          },
+          {
+            "plane_idx": 4,
+            "z_mm": 27.7,
+            "pcc_normalized": 0.5039,
+            "ssim_normalized": 0.0409,
+            "pcc_raw": 0.5039,
+            "ssim_raw": 0.0,
+            "ssim_raw_target": 0.0409
+          }
+        ],
+        "mean_pcc_normalized": 0.4299,
+        "mean_ssim_normalized": 0.033,
+        "mean_pcc_raw": 0.4299,
+        "mean_ssim_raw": 0.0,
+        "mean_ssim_raw_target": 0.033,
+        "composite_score_norm": 0.2712
+      }
+    }
+  }
+}

@@ -44,6 +44,7 @@ try:
         WAVELENGTH,
         Z_DISTANCES,
         DOENetwork,
+        SpectralResAttentionUNet,
         FresnelPropagation,
         calculate_metrics,
     )
@@ -54,6 +55,7 @@ except ImportError:
         WAVELENGTH,
         Z_DISTANCES,
         DOENetwork,
+        SpectralResAttentionUNet,
         FresnelPropagation,
         calculate_metrics,
     )
@@ -207,8 +209,13 @@ def main():
     # 3. Load Model & Weights
     weights_path = resolve_weights_path(args.weights)
     print(f"[AI Photonics] Loading model weights from: {weights_path}")
-    model = DOENetwork(in_channels=4, base_channels=32).to(device)
     state_dict = torch.load(weights_path, map_location=device)
+    is_spectral = any("bottleneck_fno" in k or "spectral_dec" in k for k in state_dict.keys())
+    if is_spectral:
+        print("[AI Photonics] Detected Spectral FNO weights; initializing SpectralResAttentionUNet.")
+        model = SpectralResAttentionUNet(in_channels=4, base_channels=32).to(device)
+    else:
+        model = DOENetwork(in_channels=4, base_channels=32).to(device)
     model.load_state_dict(state_dict)
     model.eval()
 
