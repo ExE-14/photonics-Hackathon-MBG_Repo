@@ -12,7 +12,7 @@ from PIL import Image, ImageDraw, ImageFont, ImageOps
 from torch.utils.data import DataLoader, Dataset
 from torchvision.transforms import ToTensor
 
-# Базовые физические константы проекта хакатона МИФИ
+# Базовые физические константы оптической системы ДОЭ
 WAVELENGTH: float = 532e-9      # 532 нм (зеленый лазер)
 PIXEL_SIZE: float = 10e-6       # 10 мкм (линейный шаг пикселя ПВМС)
 GRID_SIZE: int = 128            # Разрешение сетки 128x128
@@ -710,7 +710,7 @@ PhaseTVLoss = PhaseTotalVariationLoss
 
 
 class CompositeLossV3(nn.Module):
-    """Обновленная композитная функция потерь 3-го поколения (V3) для проекта ДОЭ МИФИ.
+    """Обновленная композитная функция потерь 3-го поколения (V3) для синтеза ДОЭ.
     
     Объединяет 6 физических и спектральных компонент:
     1. Pearson CC Loss (w_pcc=4.0): максимизация корреляции Пирсона между нормированными полями.

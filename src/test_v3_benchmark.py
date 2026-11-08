@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Независимый верификационный бенчмарк-тестировщик и аудитор качества (Quality Auditor & Benchmark Validator).
 
-Разработан для проекта ДОЭ МИФИ (модель версии 3.0: ResAttention U-Net, 8.42M параметров).
+Разработан для проекта ДОЭ (модель версии 3.0: ResAttention U-Net, 8.42M параметров).
 
 Функциональные возможности:
 1. Полный технический аудит:
@@ -14,7 +14,7 @@
    - Полная задержка End-to-End (U-Net + 4-плоскостное распространение Френеля).
    - Тест масштабируемости пропускной способности (batch 1, 4, 16).
 3. Всесторонняя верификация на 3 тестовых наборах:
-   - Набор 1: 20 официальных тестовых групп хакатона (test_dataset, 80 снимков DIV2K).
+   - Набор 1: 20 контрольных тестовых групп (test_dataset, 80 снимков DIV2K).
    - Набор 2: Контрастные снимки с темным фоном (снимки конкурентов rival_clean_z*, веб-снимки, синтетические оптические маски).
    - Набор 3: Произвольные тестовые формы (Бойкиссеры inverted neon / as-is, векторные силуэты).
 4. Процедура замера SSIM и Pearson CC:
@@ -413,7 +413,7 @@ class TestSetManager:
         raise FileNotFoundError(f"Директория test_dataset не найдена среди {candidates}")
 
     def load_set_1_official(self) -> List[Tuple[str, torch.Tensor]]:
-        """Набор 1: 20 официальных тестовых групп хакатона (DIV2K патчи)."""
+        """Набор 1: 20 контрольных тестовых групп (DIV2K патчи)."""
         # Фильтрация дубликатов симлинков (group_000 -> group_0): строго 20 уникальных групп 0..19
         group_dict = {}
         for p in self.test_dir.iterdir():
@@ -530,7 +530,7 @@ class TestSetManager:
         im2 = Image.fromarray(arr2, mode="L")
         channels.append(torch.from_numpy(np.array(im2, dtype=np.float32) / 255.0))
 
-        # z3: Буква "M" (МИФИ)
+        # z3: Буква "M"
         im3 = Image.new("L", (GRID_SIZE, GRID_SIZE), 0)
         draw3 = ImageDraw.Draw(im3)
         draw3.line([(25, 100), (25, 30), (64, 75), (103, 30), (103, 100)], fill=255, width=6)
@@ -598,7 +598,7 @@ def evaluate_dual_metrics(
         rec_norm_tensor: [1, 4, 128, 128] нормированный к max 1.0 модуль амплитуды
         rec_raw_tensor: [1, 4, 128, 128] ненормированный (raw) модуль амплитуды Single-FFT
     """
-    # Нормированный таргет к 1.0 (стандарт хакатона)
+    # Нормированный таргет к 1.0 (стандарт проекта)
     target_norm = target_tensor / torch.clamp_min(
         target_tensor.amax(dim=(-2, -1), keepdim=True), 1e-12
     )
@@ -783,8 +783,8 @@ def run_full_verification(
 
     set_results = {}
 
-    # Набор 1: 20 официальных тестовых групп хакатона
-    print("  -> [НАБОР 1] 20 официальных тестовых групп хакатона (DIV2K, 80 изображений)...")
+    # Набор 1: 20 контрольных тестовых групп
+    print("  -> [НАБОР 1] 20 контрольных тестовых групп (DIV2K, 80 изображений)...")
     set1_groups = dataset_mgr.load_set_1_official()
     set1_evals = []
     
@@ -1005,7 +1005,7 @@ def generate_markdown_audit_report(data: Dict[str, Any], path: Path) -> None:
 
 ## 4. Результаты валидации: Нормализованные и Raw метрики
 
-### 4.1. Набор 1: 20 официальных тестовых групп хакатона (DIV2K)
+### 4.1. Набор 1: 20 контрольных тестовых групп (DIV2K)
 | Плоскость | Дистанция z | Pearson CC (Norm) | SSIM (Norm) | Pearson CC (Raw) | SSIM (Raw) |
 |---|:---:|:---:|:---:|:---:|:---:|
 | Плоскость 1 | 24.1 мм | {s1['planes'][0]['pcc_normalized']:.4f} | {s1['planes'][0]['ssim_normalized']:.4f} | {s1['planes'][0]['pcc_raw']:.4f} | {s1['planes'][0]['ssim_raw']:.4f} |
@@ -1054,7 +1054,7 @@ def generate_markdown_audit_report(data: Dict[str, Any], path: Path) -> None:
 
 Все сравнительные визуальные мозаики сгенерированы в директории:
 `{path.parent / 'comparisons'}`:
-- `set1_official_group0.png` — Восстановление официальной группы хакатона.
+- `set1_official_group0.png` — Восстановление контрольной тестовой группы.
 - `set2_rival_clean_group.png` — Восстановление снимков конкурентов с чистым темным фоном.
 - `set2_web_screens_group.png` — Восстановление снимков из веб-интерфейса.
 - `set2_deterministic_optical_masks.png` — Восстановление колец Френеля и решеток.

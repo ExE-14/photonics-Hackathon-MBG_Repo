@@ -51,6 +51,32 @@ data/
 # Temporary runtime logs
 # ==============================================================================
 *.log
+*.bak
+*.tmp
+doe_network_best_*.pth
+
+# Experimental scratch scripts & test outputs
+run_*.py
+crop_*.py
+combine_*.py
+make_*.py
+test_rival*.py
+test_adversarial*.py
+test_web_screens.py
+get_stats.py
+independent_adversarial_verification.py
+outputs/boykisser_test/
+outputs/handwritten_digits/
+outputs/quadrant_test/
+outputs/rival_*
+outputs/audit_doe_*
+outputs/web_test/
+outputs/test_synth_gen/
+outputs/test_review_*
+outputs/official_hackathon_sample.png
+outputs/doe_test_infer.png
+outputs/test_infer_doe.png
+
 
 # ==============================================================================
 # Whitelist critical repository assets
